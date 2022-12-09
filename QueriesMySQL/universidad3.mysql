@@ -1,0 +1,90 @@
+#1
+SELECT COUNT(id) AS 'Nº alumnos'
+       FROM persona
+       WHERE tipo = 'alumno';
+       
+#2
+SELECT COUNT(id) AS 'Alumnos nacidos en 1999'
+       FROM persona
+       WHERE tipo LIKE 'alumno'
+       AND fecha_nacimiento BETWEEN '1999-01-01'
+       AND '1999-12-31';
+       
+#3
+SELECT nombre AS departamento, 
+       COUNT(id_profesor) AS 'Nº profesores'
+       FROM departamento d
+       JOIN profesor pr 
+       ON d.id = id_departamento
+       GROUP BY nombre
+       ORDER BY COUNT(id_profesor) DESC;
+       
+#4
+SELECT nombre AS departamento, 
+       COUNT(id_profesor) AS 'Nº profesores'
+       FROM departamento d
+       LEFT JOIN profesor pr 
+       ON d.id = id_departamento
+       GROUP BY nombre
+       ORDER BY COUNT(id_profesor) DESC;
+       
+#5
+SELECT g.nombre AS grado, 
+       COUNT(a.id) AS 'Nº asignaturas'
+       FROM grado g
+       LEFT JOIN asignatura a 
+       ON g.id = id_grado
+       GROUP BY g.nombre
+       ORDER BY COUNT(a.id) DESC;
+       
+#6
+SELECT g.nombre AS grado, 
+       COUNT(a.id) AS 'Nº asignaturas'
+       FROM grado g
+       LEFT JOIN asignatura a 
+       ON g.id = id_grado
+       GROUP BY g.nombre
+       HAVING COUNT(a.id) > 40;
+       
+#7  
+SELECT g.nombre, a.nombre, 
+       SUM(creditos) AS 'creditos maximos'
+	   FROM grado g
+       JOIN asignatura a;
+       #INCONCLUSA
+       
+#8
+SELECT anyo_inicio,
+       COUNT(id_alumno) AS 'Nº alumnos'
+       FROM curso_escolar ce
+       JOIN alumno_se_matricula_asignatura am
+       ON id_curso_escolar = id
+       GROUP BY anyo_inicio;
+       
+#9
+SELECT p.id, p.nombre, apellido1, apellido2,
+       COUNT(a.id) AS 'Nº asignaturas'
+       FROM persona p
+       LEFT JOIN asignatura a 
+       ON p.id = id_profesor
+       GROUP BY p.id
+       ORDER BY COUNT(a.id) DESC;
+
+#10
+SELECT * FROM persona 
+       WHERE tipo REGEXP 'a'
+       ORDER BY fecha_nacimiento DESC
+       LIMIT 1;
+       
+#11
+SELECT p.nombre,apellido1,apellido2
+       FROM persona p 
+       LEFT JOIN profesor pr
+       ON p.id = id_profesor
+	   LEFT JOIN asignatura a 
+       ON a.id_profesor = pr.id_profesor
+       WHERE pr.id_departamento != 'null'
+       AND NOT p.id = a.id_profesor;
+       #NO FUNCIONA, REVISAR!!!!
+       
+#Falta la 7 y 11

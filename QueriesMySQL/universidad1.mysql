@@ -1,0 +1,79 @@
+#1
+SELECT apellido1,apellido2,nombre 
+       FROM persona
+       WHERE tipo REGEXP 'alumno'
+       ORDER BY apellido1,apellido2,nombre;
+#2 
+SELECT nombre, CONCAT (apellido1,' ', apellido2) AS apellidos
+       FROM persona
+       WHERE tipo REGEXP 'alumno' AND telefono IS NULL;
+	
+#3
+SELECT * FROM persona 
+      WHERE fecha_nacimiento BETWEEN '1999-01-01' 
+      AND '1999-12-31'
+      AND tipo = 'alumno';
+      
+#4
+SELECT * FROM persona
+       WHERE tipo REGEXP 'profesor' 
+       AND telefono IS NULL 
+       AND nif REGEXP 'k$';
+       
+#5
+SELECT nombre FROM asignatura
+       WHERE cuatrimestre = 1
+       AND curso = 3
+       AND id_grado = 7;
+       
+#6
+SELECT p.apellido1, 
+       p.apellido2,
+       p.nombre,
+       d.nombre AS departamento
+       FROM persona p
+       INNER JOIN profesor pr
+       ON p.id = pr.id_profesor
+       INNER JOIN departamento d
+       ON pr.id_departamento = d.id
+       ORDER BY apellido1, apellido2, nombre;
+       
+#7
+SELECT a.nombre, ce.anyo_inicio, ce.anyo_fin
+       FROM alumno_se_matricula_asignatura am
+       INNER JOIN asignatura a
+       ON am.id_asignatura = a.id
+       INNER JOIN curso_escolar ce
+       ON am.id_curso_escolar = ce.id
+       INNER JOIN persona p
+       ON p.id = am.id_alumno
+       WHERE p.nif = '26902806M';
+       
+#8 
+SELECT  DISTINCT d.nombre
+       FROM departamento d
+       INNER JOIN profesor pr
+       ON d.id = pr.id_departamento
+       INNER JOIN asignatura a
+       ON pr.id_profesor = a.id_profesor
+       INNER JOIN grado g
+       ON a.id_grado = g.id
+       WHERE a.id_grado = 4;
+       
+#9
+SELECT p.nombre, apellido1, apellido2
+       FROM persona p
+       INNER JOIN alumno_se_matricula_asignatura am
+       ON am.id_alumno = p.id
+       INNER JOIN curso_escolar ce
+       ON am.id_curso_escolar = ce.id
+       WHERE ce.anyo_inicio = 2018 
+       AND ce.anyo_fin = 2019
+       GROUP BY nombre;
+       
+#9.1
+SELECT DISTINCT p.nombre, apellido1, apellido2
+       FROM persona p
+       INNER JOIN alumno_se_matricula_asignatura am
+       ON am.id_alumno = p.id
+       WHERE am.id_curso_escolar = 5;

@@ -1,0 +1,232 @@
+#1
+SELECT nombre FROM producto;
+
+#2
+SELECT nombre, precio FROM producto;
+
+#3
+SELECT * FROM producto;
+
+#4
+SELECT nombre, precio , precio * 1.04 FROM producto;
+
+#5
+SELECT nombre AS producto, precio AS precio_€, precio * 1.04 AS precio_$ FROM producto;
+
+#6
+SELECT upper(nombre), precio FROM producto;
+
+#7
+SELECT lower(nombre), precio FROM producto;
+
+#8
+SELECT nombre, upper(left(nombre, 2)) FROM fabricante;
+
+#9
+SELECT round(precio) FROM producto;
+
+#10 
+SELECT truncate(precio,0) FROM producto;
+
+#11
+SELECT fabricante.codigo
+      FROM fabricante 
+      INNER JOIN producto ON fabricante.codigo = codigo_fabricante;
+      
+SELECT codigo_fabricante FROM producto;
+
+#12
+SELECT DISTINCT fabricante.codigo
+      FROM fabricante 
+      INNER JOIN producto ON fabricante.codigo = producto.codigo_fabricante;
+      
+SELECT DISTINCT codigo_fabricante FROM producto;
+
+#13 
+SELECT nombre FROM fabricante ORDER BY nombre;
+
+#14 
+SELECT nombre FROM fabricante ORDER BY nombre DESC;
+
+#15 
+SELECT nombre FROM producto ORDER BY nombre;
+SELECT nombre FROM producto ORDER BY precio DESC;
+
+#16
+SELECT * FROM fabricante LIMIT 5;
+
+#17 
+SELECT * FROM fabricante LIMIT 3,2;
+
+#18
+SELECT nombre, precio FROM producto ORDER BY precio LIMIT 1;
+
+#19
+SELECT nombre, precio FROM producto ORDER BY precio DESC LIMIT 1;
+
+#20
+SELECT nombre FROM producto WHERE codigo_fabricante = 2;
+
+#21
+SELECT producto.nombre AS nombre_producto,
+       precio,
+       fabricante.nombre AS nombre_fabricante
+       FROM producto
+       INNER JOIN fabricante ON fabricante.codigo = codigo_fabricante;
+       
+#22
+SELECT producto.nombre AS nombre_producto,
+       precio,
+       fabricante.nombre AS nombre_fabricante
+       FROM producto
+       INNER JOIN fabricante 
+       ON fabricante.codigo = producto.codigo_fabricante
+       ORDER BY nombre_fabricante;
+       
+#23
+SELECT producto.codigo AS codigo_producto,
+       producto.nombre AS nombre_producto,
+       fabricante.codigo AS codigo_fabricante,
+       fabricante.nombre AS nombre_fabricante
+       FROM producto
+       INNER JOIN fabricante 
+       ON fabricante.codigo = producto.codigo_fabricante;
+       
+#24
+SELECT producto.nombre AS nombre_producto,
+       precio,
+       fabricante.nombre AS nombre_fabricante
+       FROM producto
+       INNER JOIN fabricante 
+       ON fabricante.codigo = codigo_fabricante
+       ORDER BY precio 
+       LIMIT 1;
+#25
+SELECT producto.nombre AS nombre_producto,
+       precio,
+       fabricante.nombre AS nombre_fabricante
+       FROM producto
+       INNER JOIN fabricante 
+       ON fabricante.codigo = codigo_fabricante
+       ORDER BY precio DESC 
+       LIMIT 1;
+       #24
+
+#26
+SELECT p.nombre AS nombre_producto,
+       f.nombre AS nombre_fabricante
+       FROM producto p
+       INNER JOIN fabricante f
+       ON codigo_fabricante = f.codigo
+	   WHERE f.nombre = 'lenovo';
+       
+#27 
+SELECT p.nombre AS nombre_producto,
+       precio
+       FROM producto p
+       INNER JOIN fabricante f
+       ON codigo_fabricante = f.codigo
+	   WHERE f.nombre = 'crucial' AND precio > 200;
+       
+#28
+SELECT p.nombre AS nombre_producto,
+       precio
+       FROM producto p
+       INNER JOIN fabricante f
+       ON codigo_fabricante = f.codigo
+	   WHERE f.nombre REGEXP 'lenovo|hewlett-packard|seagate';
+       
+#29
+SELECT p.nombre AS nombre_producto,
+       precio
+       FROM producto p
+       INNER JOIN fabricante f
+       ON codigo_fabricante = f.codigo
+	   WHERE f.nombre IN ('lenovo','hewlett-packard', 'seagate');
+
+#30
+SELECT p.nombre AS nombre_producto,
+       precio
+       FROM producto p
+       INNER JOIN fabricante f
+       ON codigo_fabricante = f.codigo
+	   WHERE f.nombre REGEXP 'e$';
+       
+#31
+SELECT p.nombre AS nombre_producto,
+       precio
+       FROM producto p
+       INNER JOIN fabricante f
+       ON codigo_fabricante = f.codigo
+	   WHERE f.nombre REGEXP 'w';
+       
+#32
+SELECT p.nombre AS nombre_producto,
+       precio,
+       f.nombre AS nombre_fabricante
+       FROM producto p
+       INNER JOIN fabricante f
+       ON codigo_fabricante = f.codigo
+	   WHERE precio >= 180
+       ORDER BY precio DESC, p.nombre;
+       
+#33
+SELECT  DISTINCT f.nombre, f.codigo
+       FROM fabricante f
+       INNER JOIN producto p
+       ON codigo_fabricante = f.codigo;
+
+#34
+SELECT f.nombre AS 'fabricante',
+	   p.nombre AS 'producto'
+       FROM fabricante f
+       LEFT JOIN producto p 
+       ON codigo_fabricante = f.codigo;
+       
+#35
+SELECT f.nombre
+       FROM fabricante f
+       LEFT JOIN producto p 
+       ON codigo_fabricante = f.codigo
+       WHERE p.nombre IS NULL;
+
+#36 
+SELECT p.nombre
+       FROM producto p
+       RIGHT JOIN fabricante f
+       ON codigo_fabricante = f.codigo
+       WHERE f.nombre REGEXP 'lenovo';
+       
+#37 
+SELECT * FROM producto p
+       LEFT JOIN fabricante f 
+       ON AS codigo_fabricante = f.codigo
+       #INCONCLUSA
+
+#38
+SELECT p.nombre
+       FROM producto p
+       RIGHT JOIN fabricante f
+       ON codigo_fabricante = f.codigo
+       WHERE f.nombre REGEXP 'lenovo'
+       ORDER BY precio DESC
+       LIMIT 1;
+       
+#39
+SELECT p.nombre,precio
+       FROM producto p
+       RIGHT JOIN fabricante f
+       ON codigo_fabricante = f.codigo
+       WHERE f.nombre REGEXP 'hewlett'
+       ORDER BY precio 
+       LIMIT 1;
+
+#40
+   //
+   //
+
+#41
+   // 
+   //
+       
+#Faltan la 37, 40 y 41

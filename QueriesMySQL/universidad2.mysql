@@ -1,0 +1,46 @@
+#1 
+SELECT d.nombre, apellido1, apellido2, p.nombre
+       FROM persona p
+       RIGHT JOIN profesor pr
+       ON pr.id_profesor = p.id
+       RIGHT JOIN departamento d
+       ON pr.id_departamento = d.id
+       WHERE tipo = 'profesor'
+       ORDER BY d.nombre,apellido1,apellido2,p.nombre;
+       
+#2
+SELECT nombre, apellido1, apellido2
+       FROM persona p
+       RIGHT JOIN profesor pr
+       ON id = id_profesor
+       WHERE tipo LIKE 'profesor'
+       AND id_departamento IS NULL;
+       
+#3
+SELECT nombre FROM departamento d
+       LEFT OUTER JOIN profesor pr
+       ON id = id_departamento
+       WHERE id_profesor IS NULL;
+       
+#4
+SELECT p.nombre, 
+       CONCAT(apellido1, '  ', apellido2) AS apellidos
+	   FROM persona p
+       LEFT JOIN asignatura a
+       ON p.id = id_profesor
+       WHERE p.tipo = 'profesor' 
+       AND id_profesor IS NULL;
+       
+#5 
+SELECT DISTINCT nombre FROM asignatura
+       WHERE id_profesor IS NULL;
+       
+#6
+SELECT de.nombre FROM departamento d
+      LEFT JOIN profesor pr
+      ON d.id = id_departamento
+      RIGHT JOIN asignatura a
+      ON pr.id_profesor = a.id_profesor
+      RIGHT JOIN departamento de
+      ON d.id = de.id
+      WHERE a.id_grado IS NULL;
